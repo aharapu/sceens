@@ -1,6 +1,7 @@
 import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from "@/components/ui/card";
 import { Checkbox } from "@/components/ui/checkbox";
 import { Button } from "@/components/ui/button";
+import { PlusCircle } from "lucide-react";
 
 import { useState } from "react";
 
@@ -14,7 +15,10 @@ export function TodoCard({ title, date, todos }) {
         {todos.map((td) => (
           <TodoItem key={td} text={td} />
         ))}
-        <Button className="mt-3 pt-1">Add Todo</Button>
+        <Button className="mt-3 h-[30px] w-[110px] p-0">
+          <PlusCircle className="mr-2 h-5 w-5" />
+          Add Todo
+        </Button>
       </CardContent>
       <CardFooter className="mt-auto">
         <CardDescription>{date}</CardDescription>
