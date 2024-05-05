@@ -13,11 +13,15 @@ const mnow = moment();
 
 const getRandom = (maxVal) => Math.ceil(Math.random() * maxVal);
 
-const tdl = new Array(7).fill().map((nill, idx) => ({
+const numLists = 1;
+const maxNumItems = 7;
+const minNumItems = 2;
+
+const tdl = new Array(numLists).fill().map((nill, idx) => ({
   id: idx,
   date: new Date(now.setDate(now.getDate() + idx)).toLocaleDateString("ro-RO"),
   title: mnow.add(idx, "days").format("dddd"),
-  todos: new Array(Math.max(getRandom(7), 2)).fill().map(() => faker.word.words(Math.max(3, getRandom(7)))),
+  todos: new Array(Math.max(getRandom(maxNumItems), minNumItems)).fill().map(() => faker.word.words(Math.max(3, getRandom(7)))),
 }));
 
 console.log("tdl", tdl);
@@ -38,8 +42,7 @@ export function HomePage() {
           <Button className="w-full">Sign Out</Button>
         </CardFooter>
       </Card>
-      {/* <div className="h-full w-full flex gap-5 p-5 flex-wrap"> */}
-      <div className="w-full flex gap-5 p-5 flex-wrap h-fit">
+      <div className="w-full flex gap-5 p-5 flex-wrap h-[100vh] overflow-y-scroll">
         {tdl.map((tl) => (
           <TodoCard key={tl.id} date={tl.date} title={tl.title} todos={tl.todos} />
         ))}
