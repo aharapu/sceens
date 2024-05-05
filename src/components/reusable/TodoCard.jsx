@@ -4,7 +4,7 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Separator } from "@/components/ui/separator";
 // eslint-disable-next-line no-unused-vars
-import { PlusCircle, CheckCircle, CheckCircle2, Trash2, PlusSquare } from "lucide-react";
+import { PlusCircle, CheckCircle, CheckCircle2, Trash2, PlusSquare, PenSquare } from "lucide-react";
 
 import { useState } from "react";
 
@@ -53,12 +53,23 @@ export function TodoCard({ title, date, todos, isToday = false, isAdding = false
 function TodoItem({ text }) {
   const [checked, setChecked] = useState(Math.random() > 0.7);
 
-  const spanClass = checked ? "line-through" : "";
+  let spanClass = "grow-1";
+  spanClass += checked ? " line-through" : "";
 
   return (
-    <div className="flex items-center gap-2">
-      <Checkbox checked={checked} onCheckedChange={setChecked} />
-      <span className={spanClass}>{text}</span>
+    <div className="flex items-center justify-between pt-0.5 pb-0.5">
+      <div className="flex items-center gap-2">
+        <Checkbox className="shrink-0 grow-0" checked={checked} onCheckedChange={setChecked} />
+        <span className={spanClass}>{text}</span>
+      </div>
+      <div className="flex items-center gap-2">
+        <Button className="h-[24px] w-[24px] p-0 shrink-0 grow-0 bg-cyan-200">
+          <PenSquare className="h-[16px] w-[16px] text-neutral-900" />
+        </Button>
+        <Button className="h-[24px] w-[24px] p-0 shrink-0 grow-0 bg-red-200">
+          <Trash2 className="h-[16px] w-[16px] text-neutral-900" />
+        </Button>
+      </div>
     </div>
   );
 }
