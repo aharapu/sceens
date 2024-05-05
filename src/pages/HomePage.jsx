@@ -6,21 +6,22 @@ import { Separator } from "@/components/ui/separator";
 import { TodoCard } from "../components/reusable/TodoCard";
 import { faker } from "@faker-js/faker";
 import moment from "moment";
+import { TooltipBasic } from "../components/reusable/Tooltip";
 
 const now = new Date();
 
-const mnow = moment();
+const mnow = moment().subtract(1, "day");
 
 const getRandom = (maxVal) => Math.ceil(Math.random() * maxVal);
 
-const numLists = 1;
+const numLists = 7;
 const maxNumItems = 7;
-const minNumItems = 2;
+const minNumItems = 3;
 
 const tdl = new Array(numLists).fill().map((nill, idx) => ({
   id: idx,
   date: new Date(now.setDate(now.getDate() + idx)).toLocaleDateString("ro-RO"),
-  title: mnow.add(idx, "days").format("dddd"),
+  title: mnow.add(1, "days").format("dddd"),
   todos: new Array(Math.max(getRandom(maxNumItems), minNumItems)).fill().map(() => faker.word.words(Math.max(3, getRandom(7)))),
 }));
 
@@ -37,14 +38,27 @@ export function HomePage() {
         <CardContent>
           <span>Welcome Ana</span>
           <Separator className="mt-3 mb-1" />
+          <TooltipBasic>
+            <Button className="w-full mt-3 cursor-not-allowed" variant="secondary">
+              Today
+            </Button>
+          </TooltipBasic>
+
+          <Button className="w-full mt-3">Week</Button>
+
+          <TooltipBasic>
+            <Button className="w-full mt-3 cursor-not-allowed" variant="secondary">
+              Month
+            </Button>
+          </TooltipBasic>
         </CardContent>
         <CardFooter className="flex justify-between mt-auto">
           <Button className="w-full">Sign Out</Button>
         </CardFooter>
       </Card>
       <div className="w-full flex gap-5 p-5 flex-wrap h-[100vh] overflow-y-scroll">
-        {tdl.map((tl) => (
-          <TodoCard key={tl.id} date={tl.date} title={tl.title} todos={tl.todos} />
+        {tdl.map((tl, idx) => (
+          <TodoCard key={tl.id} date={tl.date} title={tl.title} todos={tl.todos} isToday={idx === 0} isAdding={idx === 4} />
         ))}
       </div>
     </div>
